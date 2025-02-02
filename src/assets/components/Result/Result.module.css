@@ -1,12 +1,37 @@
-.result {
-    background: linear-gradient(
-    135deg, 
-    rgba(255, 255, 255, 0.2), 
-    rgba(255, 255, 255, 0.05)
-  );
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
+.resultContainer {
+  padding: 20px;
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  color: white;
+}
+
+.resultTitle {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.resultList {
+  list-style: none;
+  padding: 0;
+}
+
+.resultItem {
+  margin-bottom: 15px;
+  padding: 10px;
+  background-color: #2e2e2e;
+  border-radius: 5px;
+}
+
+.filmTitle {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #f5c518;
+}
+
+.filmInfo {
+  font-size: 14px;
+  margin: 2px 0;
+  color: #ddd;
 }

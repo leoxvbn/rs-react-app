@@ -5,8 +5,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow-y: auto; /* Чтобы контент прокручивался при необходимости */
-    box-sizing: border-box; /* Чтобы padding не увеличивал размер контейнера */
+    overflow-y: auto;
+    box-sizing: border-box;
     background: linear-gradient(
     135deg, 
     rgba(255, 255, 255, 0.2), 

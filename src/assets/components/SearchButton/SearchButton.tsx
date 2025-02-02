@@ -1,9 +1,8 @@
-import React from 'react';
-import styles from './SearchButton.module.css'; // Импортируем стили для кнопки
+import styles from './SearchButton.module.css';
 
 interface SearchButtonProps {
-  onClick: () => void; // Обработчик клика
-  text: string; // Текст на кнопке
+  onClick: () => void;
+  text: string;
 }
 
 const SearchButton: React.FC<SearchButtonProps> = ({ onClick, text }) => {
@@ -15,3 +14,4 @@ const SearchButton: React.FC<SearchButtonProps> = ({ onClick, text }) => {
 };
 
 export default SearchButton;
+

@@ -1,4 +1,4 @@
-import styles from './SearchInput.module.css'; // Импортируем стили для компонента
+import styles from './SearchInput.module.css';
 
 interface SearchInputProps {
   value: string;
@@ -12,7 +12,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ value, onChange }) => {
       type="text"
       value={value}
       onChange={onChange}
-      placeholder="Start to find movie"
+      placeholder="Start searching for movies"
     />
   );
 };
