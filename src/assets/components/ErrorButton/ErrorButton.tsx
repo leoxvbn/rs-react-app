@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import styles from './ErrorButton.module.css';
+import React, { useState } from "react";
+import styles from "./ErrorButton.module.css";
 
 const ErrorButton: React.FC = () => {
   const [throwError, setThrowError] = useState(false);
 
   if (throwError) {
-    throw new Error('Test error!');
+    throw new Error("Test error!");
   }
 
   return (
@@ -16,4 +16,3 @@ const ErrorButton: React.FC = () => {
 };
 
 export default ErrorButton;
-

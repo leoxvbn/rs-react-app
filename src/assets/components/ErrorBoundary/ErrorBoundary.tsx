@@ -1,4 +1,4 @@
-import React, { ErrorInfo, ReactNode } from 'react';
+import React, { ErrorInfo, ReactNode } from "react";
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -9,7 +9,10 @@ interface ErrorBoundaryProps {
   children: ReactNode;
 }
 
-class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundaryState> {
+class ErrorBoundary extends React.Component<
+  ErrorBoundaryProps,
+  ErrorBoundaryState
+> {
   constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = {
@@ -23,7 +26,7 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Error caught in Error Boundary:', error, errorInfo);
+    console.error("Error caught in Error Boundary:", error, errorInfo);
     this.setState({
       errorInfo,
     });
@@ -36,13 +39,29 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
   render() {
     if (this.state.hasError) {
       return (
-        <div style={{ padding: '20px', background: '#f9dada', color: '#e74c3c', border: '1px solid #e74c3c' }}>
-        <h2>Oops! An error occurred.</h2>
-        <p>Something went wrong while loading this component. Try reloading the page.</p>
-        <button onClick={this.reloadPage} style={{ padding: '10px', backgroundColor: '#e74c3c', color: '#fff' }}>
-          Reload
-        </button>
-
+        <div
+          style={{
+            padding: "20px",
+            background: "#f9dada",
+            color: "#e74c3c",
+            border: "1px solid #e74c3c",
+          }}
+        >
+          <h2>Oops! An error occurred.</h2>
+          <p>
+            Something went wrong while loading this component. Try reloading the
+            page.
+          </p>
+          <button
+            onClick={this.reloadPage}
+            style={{
+              padding: "10px",
+              backgroundColor: "#e74c3c",
+              color: "#fff",
+            }}
+          >
+            Reload
+          </button>
         </div>
       );
     }
@@ -52,5 +71,3 @@ class ErrorBoundary extends React.Component<ErrorBoundaryProps, ErrorBoundarySta
 }
 
 export default ErrorBoundary;
-
-

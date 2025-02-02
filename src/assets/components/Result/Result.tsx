@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import styles from './Result.module.css';
-import Spinner from '../Spinner/Spinner';
+import React, { useState, useEffect } from "react";
+import styles from "./Result.module.css";
+import Spinner from "../Spinner/Spinner";
 
 interface ResultProps {
   searchQuery: string;
@@ -20,19 +20,18 @@ interface Film {
 const Result: React.FC<ResultProps> = ({ searchQuery, hasClickedSearch }) => {
   const [films, setFilms] = useState<Film[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>('');
+  const [error, setError] = useState<string>("");
 
   useEffect(() => {
-    // Если еще не был кликнут поиск, то не выполняем запрос
     if (!hasClickedSearch) return;
 
     const fetchFilms = async () => {
       setLoading(true);
-      setError('');
+      setError("");
 
       try {
-        let url = 'https://swapi.dev/api/films/';
-        if (searchQuery.trim() !== '') {
+        let url = "https://swapi.dev/api/films/";
+        if (searchQuery.trim() !== "") {
           url = `https://swapi.dev/api/films/?search=${searchQuery.trim()}`;
         }
 
@@ -43,29 +42,37 @@ const Result: React.FC<ResultProps> = ({ searchQuery, hasClickedSearch }) => {
 
         const data = await response.json();
         const filteredFilms = data.results.filter((film: Film) =>
-          film.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
+          film.title.toLowerCase().includes(searchQuery.trim().toLowerCase()),
         );
 
         setFilms(filteredFilms);
-        localStorage.setItem('searchQuery', searchQuery.trim());
-      } catch (err: any) {
-        setError(`Error loading data: ${err.message}`);
+        localStorage.setItem("searchQuery", searchQuery.trim());
+      } catch (err: unknown) {
+        if (err instanceof Error) {
+          setError(`Error loading data: ${err.message}`);
+        } else {
+          setError("An unknown error occurred.");
+        }
       } finally {
         setLoading(false);
       }
     };
 
     fetchFilms();
-  }, [searchQuery, hasClickedSearch]); // Выполняем запрос только после того, как нажата кнопка
+  }, [searchQuery, hasClickedSearch]);
 
   if (!hasClickedSearch) {
-    return null; // Пока не был кликнут поиск, ничего не отображаем
+    return null;
   }
 
   if (loading) return <Spinner />;
   if (error) return <div className={styles.resultContainer}>{error}</div>;
   if (films.length === 0)
-    return <div className={styles.resultContainer}>No results for your query "{searchQuery}"</div>;
+    return (
+      <div className={styles.resultContainer}>
+        No results for your query &quot;{searchQuery}&quot;
+      </div>
+    );
 
   return (
     <div className={styles.resultContainer}>
@@ -73,10 +80,18 @@ const Result: React.FC<ResultProps> = ({ searchQuery, hasClickedSearch }) => {
       <ul className={styles.resultList}>
         {films.map((film) => (
           <li key={film.episode_id} className={styles.resultItem}>
-            <h3><strong>Film:</strong> {film.title}</h3>
-            <p><strong>Director:</strong> {film.director}</p>
-            <p><strong>Producer:</strong> {film.producer}</p>
-            <p><strong>Date:</strong> {film.release_date}</p>
+            <h3>
+              <strong>Film:</strong> {film.title}
+            </h3>
+            <p>
+              <strong>Director:</strong> {film.director}
+            </p>
+            <p>
+              <strong>Producer:</strong> {film.producer}
+            </p>
+            <p>
+              <strong>Date:</strong> {film.release_date}
+            </p>
           </li>
         ))}
       </ul>
@@ -85,12 +100,3 @@ const Result: React.FC<ResultProps> = ({ searchQuery, hasClickedSearch }) => {
 };
 
 export default Result;
-
-
-
-
-
-
-
-
-

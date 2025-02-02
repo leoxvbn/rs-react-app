@@ -1,4 +1,4 @@
-import styles from './Controls.module.css';
+import styles from "./Controls.module.css";
 
 interface ControlsProps {
   children: React.ReactNode;

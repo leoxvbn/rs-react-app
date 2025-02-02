@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from 'react';
-import './App.css';
-import SearchInput from './assets/components/SearchInput/SearchInput';
-import SearchButton from './assets/components/SearchButton/SearchButton';
-import Section from './assets/components/Section/Section';
-import Controls from './assets/components/Controls/Controls';
-import Result from './assets/components/Result/Result';
-import DataSection from './assets/components/DataSection/DataSection';
-import ErrorBoundary from './assets/components/ErrorBoundary/ErrorBoundary';
-import ErrorButton from './assets/components/ErrorButton/ErrorButton';
+import React, { useState, useEffect } from "react";
+import "./App.css";
+import SearchInput from "./assets/components/SearchInput/SearchInput";
+import SearchButton from "./assets/components/SearchButton/SearchButton";
+import Section from "./assets/components/Section/Section";
+import Controls from "./assets/components/Controls/Controls";
+import Result from "./assets/components/Result/Result";
+import DataSection from "./assets/components/DataSection/DataSection";
+import ErrorBoundary from "./assets/components/ErrorBoundary/ErrorBoundary";
+import ErrorButton from "./assets/components/ErrorButton/ErrorButton";
 
 function App() {
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [submittedSearch, setSubmittedSearch] = useState<string>('');
-  const [hasClickedSearch, setHasClickedSearch] = useState<boolean>(false); // Флаг, чтобы отслеживать, была ли нажата кнопка
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [submittedSearch, setSubmittedSearch] = useState<string>("");
+  const [hasClickedSearch, setHasClickedSearch] = useState<boolean>(false);
 
-  // Проверяем savedSearch при монтировании компонента, чтобы задать значение в инпут, если оно есть в localStorage
   useEffect(() => {
-    const savedSearch = localStorage.getItem('searchQuery');
+    const savedSearch = localStorage.getItem("searchQuery");
     if (savedSearch) {
-      setSearchValue(savedSearch); // Устанавливаем значение из localStorage в searchValue
-      setSubmittedSearch(savedSearch); // Сохраняем его как submittedSearch
+      setSearchValue(savedSearch);
+      setSubmittedSearch(savedSearch);
     }
   }, []);
 
@@ -27,9 +26,9 @@ function App() {
   const handleButtonClick = () => {
     const trimmedSearch = searchValue.trim();
     setSubmittedSearch(trimmedSearch);
-    localStorage.setItem('searchQuery', trimmedSearch); // Сохраняем запрос в localStorage
-    setSearchValue('');
-    setHasClickedSearch(true); // Устанавливаем флаг, что кнопка была нажата
+    localStorage.setItem("searchQuery", trimmedSearch);
+    setSearchValue("");
+    setHasClickedSearch(true);
   };
 
   return (
@@ -39,12 +38,18 @@ function App() {
           <Controls>
             <SearchInput
               value={searchValue}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearchValue(e.target.value)}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSearchValue(e.target.value)
+              }
             />
             <SearchButton onClick={handleButtonClick} text="Search" />
           </Controls>
           <DataSection>
-            <Result searchQuery={submittedSearch} hasClickedSearch={hasClickedSearch} /> {/* Передаем флаг */}
+            <Result
+              searchQuery={submittedSearch}
+              hasClickedSearch={hasClickedSearch}
+            />{" "}
+            {/* Передаем флаг */}
           </DataSection>
           <ErrorButton />
         </Section>
@@ -54,8 +59,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-

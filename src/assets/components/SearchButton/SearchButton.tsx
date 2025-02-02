@@ -1,4 +1,4 @@
-import styles from './SearchButton.module.css';
+import styles from "./SearchButton.module.css";
 
 interface SearchButtonProps {
   onClick: () => void;
@@ -14,4 +14,3 @@ const SearchButton: React.FC<SearchButtonProps> = ({ onClick, text }) => {
 };
 
 export default SearchButton;
-
