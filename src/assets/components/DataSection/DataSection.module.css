@@ -5,9 +5,18 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid orange; /* Белая рамка */
     overflow-y: auto; /* Чтобы контент прокручивался при необходимости */
     box-sizing: border-box; /* Чтобы padding не увеличивал размер контейнера */
-  }
+    background: linear-gradient(
+    135deg, 
+    rgba(255, 255, 255, 0.2), 
+    rgba(255, 255, 255, 0.05)
+    );
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+}
 
   

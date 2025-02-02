@@ -1,7 +1,18 @@
 .searchInput {
     width: 40vw;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    padding: 12px 16px;
     font-size: 16px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    background: rgba(238, 235, 235, 0.912);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
   }
+  
+  .searchInput:focus {
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+  

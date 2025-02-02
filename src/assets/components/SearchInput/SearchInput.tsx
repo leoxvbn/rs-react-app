@@ -12,7 +12,7 @@ const SearchInput: React.FC<SearchInputProps> = ({ value, onChange }) => {
       type="text"
       value={value}
       onChange={onChange}
-      placeholder="Search..."
+      placeholder="Start to find movie"
     />
   );
 };

@@ -1,5 +1,5 @@
-// src/assets/components/Result/Result.tsx
 import React, { useState, useEffect } from 'react';
+import Spinner from '../Spinner/Spinner'; // Индикатор загрузки
 
 interface ResultProps {
   searchQuery: string;
@@ -21,28 +21,34 @@ const Result: React.FC<ResultProps> = ({ searchQuery }) => {
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    // Если строка поиска пуста, очищаем результаты
-    if (searchQuery.trim() === '') {
-      setFilms([]);
+    if (searchQuery === '') {
+      setFilms([]); // Очищаем фильмы, если поиск пустой
       return;
     }
 
     const fetchFilms = async () => {
-      setLoading(true);
-      setError('');
+      setLoading(true); // Устанавливаем loading в true перед началом запроса
+      setError(''); // Очищаем предыдущую ошибку
       try {
         const response = await fetch('https://swapi.dev/api/films/');
+        
         if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
+          throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
         }
+        
         const data = await response.json();
-        // Фильтруем фильмы по названию, учитывая регистр
-        const filteredFilms = data.results.filter((film: Film) =>
-          film.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
+        
+        // Если searchQuery пустой, выводим все фильмы
+        const filteredFilms = searchQuery.trim()
+          ? data.results.filter((film: Film) =>
+              film.title.toLowerCase().includes(searchQuery.trim().toLowerCase())
+            )
+          : data.results;
+
         setFilms(filteredFilms);
-      } catch (err) {
-        setError('Ошибка при загрузке данных');
+        localStorage.setItem('searchQuery', searchQuery.trim());
+      } catch (err: any) {
+        setError(`Ошибка при загрузке данных. Код статуса: ${err.message}`);
       } finally {
         setLoading(false);
       }
@@ -52,15 +58,15 @@ const Result: React.FC<ResultProps> = ({ searchQuery }) => {
   }, [searchQuery]);
 
   if (loading) {
-    return <div>Загрузка...</div>;
+    return <Spinner />; // Отображаем спиннер во время загрузки
   }
 
   if (error) {
-    return <div>{error}</div>;
+    return <div>{error}</div>; // Показываем сообщение об ошибке
   }
 
   if (films.length === 0) {
-    return <div>Нет результатов для запроса "{searchQuery}"</div>;
+    return <div>Нет результатов для запроса "{searchQuery}"</div>; // Сообщение, если нет результатов
   }
 
   return (
@@ -69,7 +75,7 @@ const Result: React.FC<ResultProps> = ({ searchQuery }) => {
       <ul>
         {films.map((film) => (
           <li key={film.episode_id}>
-            <h3>{film.title}</h3>
+            <h3><strong>Фильм:</strong>{film.title}</h3>
             <p><strong>Режиссёр:</strong> {film.director}</p>
             <p><strong>Продюсер:</strong> {film.producer}</p>
             <p><strong>Дата выпуска:</strong> {film.release_date}</p>
@@ -81,5 +87,12 @@ const Result: React.FC<ResultProps> = ({ searchQuery }) => {
 };
 
 export default Result;
+
+
+
+
+
+
+
 
 
