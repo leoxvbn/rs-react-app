@@ -1,0 +1,13 @@
+.dataSection {
+    width: 100%;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid orange; /* Белая рамка */
+    overflow-y: auto; /* Чтобы контент прокручивался при необходимости */
+    box-sizing: border-box; /* Чтобы padding не увеличивал размер контейнера */
+  }
+
+  

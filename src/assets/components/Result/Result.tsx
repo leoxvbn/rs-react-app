@@ -1,3 +1,4 @@
+// src/assets/components/Result/Result.tsx
 import React, { useState, useEffect } from 'react';
 
 interface ResultProps {
@@ -8,26 +9,38 @@ interface Film {
   title: string;
   episode_id: number;
   opening_crawl: string;
+  director: string;
+  producer: string;
+  release_date: string;
+  url: string;
 }
 
 const Result: React.FC<ResultProps> = ({ searchQuery }) => {
-  const [results, setResults] = useState<Film[]>([]);
+  const [films, setFilms] = useState<Film[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    if (searchQuery.trim() === '') return; // Прекращаем запрос, если строка поиска пуста
+    // Если строка поиска пуста, очищаем результаты
+    if (searchQuery.trim() === '') {
+      setFilms([]);
+      return;
+    }
 
-    const fetchResults = async () => {
+    const fetchFilms = async () => {
       setLoading(true);
       setError('');
       try {
-        const response = await fetch(`https://swapi.dev/api/films/`);
+        const response = await fetch('https://swapi.dev/api/films/');
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
         const data = await response.json();
-        const filteredResults = data.results.filter((film: Film) =>
+        // Фильтруем фильмы по названию, учитывая регистр
+        const filteredFilms = data.results.filter((film: Film) =>
           film.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
-        setResults(filteredResults); // Отфильтровываем фильмы по поисковому запросу
+        setFilms(filteredFilms);
       } catch (err) {
         setError('Ошибка при загрузке данных');
       } finally {
@@ -35,7 +48,7 @@ const Result: React.FC<ResultProps> = ({ searchQuery }) => {
       }
     };
 
-    fetchResults();
+    fetchFilms();
   }, [searchQuery]);
 
   if (loading) {
@@ -46,24 +59,27 @@ const Result: React.FC<ResultProps> = ({ searchQuery }) => {
     return <div>{error}</div>;
   }
 
+  if (films.length === 0) {
+    return <div>Нет результатов для запроса "{searchQuery}"</div>;
+  }
+
   return (
     <div>
-      <h2>Результаты поиска для: {searchQuery}</h2>
-      {results.length > 0 ? (
-        <ul>
-          {results.map((film) => (
-            <li key={film.episode_id}>
-              <h3>{film.title}</h3>
-              <p>{film.opening_crawl}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>Нет результатов</p>
-      )}
+      <h2>Результаты для: {searchQuery}</h2>
+      <ul>
+        {films.map((film) => (
+          <li key={film.episode_id}>
+            <h3>{film.title}</h3>
+            <p><strong>Режиссёр:</strong> {film.director}</p>
+            <p><strong>Продюсер:</strong> {film.producer}</p>
+            <p><strong>Дата выпуска:</strong> {film.release_date}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
 
 export default Result;
+
 

@@ -1,12 +1,13 @@
 .section {
-    width: 100%; /* На всю ширину экрана */
-    height: 100vh; /* На всю высоту экрана */
-    border: 1px solid white; /* Белая рамка */
-    margin: 0; /* Убираем отступы */
+     /* Занимает всю ширину */
+    height: 100%; /* Занимает всю высоту экрана */
     display: flex;
-    justify-content: space-between; /* Расстояние между элементами */
-    align-items: center; /* Центрирование по вертикали */
-    box-sizing: border-box; /* Учитывает рамки в ширине и высоте */
+    flex-direction: column; /* Выстраиваем элементы в колонку */
+    justify-content: flex-start; /* По умолчанию элементы будут выравниваться сверху */
+    padding: 10px;
+    gap: 20px;
+    border: solid white;
+    box-sizing: border-box; /* Учитываем padding в ширине и высоте */
   }
   
   
