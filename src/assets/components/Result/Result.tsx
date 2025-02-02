@@ -23,7 +23,8 @@ const Result: React.FC<ResultProps> = ({ searchQuery, hasClickedSearch }) => {
   const [error, setError] = useState<string>('');
 
   useEffect(() => {
-    if (!hasClickedSearch) return; // Запрос не выполняется при первом рендере, пока не нажата кнопка
+    // Если еще не был кликнут поиск, то не выполняем запрос
+    if (!hasClickedSearch) return;
 
     const fetchFilms = async () => {
       setLoading(true);
@@ -55,7 +56,11 @@ const Result: React.FC<ResultProps> = ({ searchQuery, hasClickedSearch }) => {
     };
 
     fetchFilms();
-  }, [searchQuery, hasClickedSearch]); // Теперь запрос выполняется только после нажатия кнопки
+  }, [searchQuery, hasClickedSearch]); // Выполняем запрос только после того, как нажата кнопка
+
+  if (!hasClickedSearch) {
+    return null; // Пока не был кликнут поиск, ничего не отображаем
+  }
 
   if (loading) return <Spinner />;
   if (error) return <div className={styles.resultContainer}>{error}</div>;
@@ -80,6 +85,8 @@ const Result: React.FC<ResultProps> = ({ searchQuery, hasClickedSearch }) => {
 };
 
 export default Result;
+
+
 
 
 

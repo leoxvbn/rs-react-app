@@ -14,11 +14,12 @@ function App() {
   const [submittedSearch, setSubmittedSearch] = useState<string>('');
   const [hasClickedSearch, setHasClickedSearch] = useState<boolean>(false); // Флаг, чтобы отслеживать, была ли нажата кнопка
 
-  // Проверяем savedSearch при монтировании компонента, но не выполняем запрос
+  // Проверяем savedSearch при монтировании компонента, чтобы задать значение в инпут, если оно есть в localStorage
   useEffect(() => {
     const savedSearch = localStorage.getItem('searchQuery');
     if (savedSearch) {
-      setSubmittedSearch(savedSearch); // Вставляем savedSearch в submittedSearch
+      setSearchValue(savedSearch); // Устанавливаем значение из localStorage в searchValue
+      setSubmittedSearch(savedSearch); // Сохраняем его как submittedSearch
     }
   }, []);
 
